@@ -7,6 +7,8 @@ from pathlib import Path
 from typing import Union
 
 from PIL import Image
+from pydantic import HttpUrl
+import requests
 
 
 """
@@ -18,6 +20,21 @@ SUPPORTED_FILE_TYPES: list[str] = [".jpg", ".png"]
 
 def name_file(fp: Path, suffix) -> str:
     return f"{fp.stem}{suffix}{fp.suffix}"
+
+
+def read_from_url(url: HttpUrl) -> Image:
+    res = requests.get(url)
+    im: Image = Image.open(BytesIO(res.content))
+    im.verify()
+    im.seek(0)
+    return im
+
+
+def read_from_file(fp) -> Image:
+    im: Image = Image.open(fp)
+    im.verify()
+    im.seek(0)
+    return im
 
 
 def resize(fp: Union[str, bytes], scale: Union[float, int]) -> tuple[BytesIO, dict]:
@@ -32,10 +49,9 @@ def resize(fp: Union[str, bytes], scale: Union[float, int]) -> tuple[BytesIO, di
     """
     _scale = lambda dim, s: int(dim * s / 100)
     if isinstance(fp, bytes):
-        im: PIL.Image.Image = Image.open(BytesIO(fp))
+        im: Image = read_from_file(fp)
     else:
-        im: PIL.Image.Image = Image.open(fp)
-    # im.verify()
+        im: Image = read_from_url(fp)
     width, height = im.size
     new_width: int = _scale(width, scale)
     new_height: int = _scale(height, scale)
