@@ -25,15 +25,11 @@ def name_file(fp: Path, suffix) -> str:
 def read_from_url(url: HttpUrl) -> Image:
     res = requests.get(url)
     im: Image = Image.open(BytesIO(res.content))
-    im.verify()
-    im.seek(0)
     return im
 
 
 def read_from_file(fp) -> Image:
-    im: Image = Image.open(fp)
-    im.verify()
-    im.seek(0)
+    im: Image = Image.open(BytesIO(fp))
     return im
 
 
@@ -47,11 +43,11 @@ def resize(fp: Union[str, bytes], scale: Union[float, int]) -> tuple[BytesIO, di
     Returns:
         image (np.ndarray): Scaled image
     """
-    _scale = lambda dim, s: int(dim * s / 100)
     if isinstance(fp, bytes):
         im: Image = read_from_file(fp)
     else:
         im: Image = read_from_url(fp)
+    _scale = lambda dim, s: int(dim * s / 100)
     width, height = im.size
     new_width: int = _scale(width, scale)
     new_height: int = _scale(height, scale)
@@ -70,6 +66,7 @@ def resize(fp: Union[str, bytes], scale: Union[float, int]) -> tuple[BytesIO, di
     return buf, stats
 
 
+# salvage what I need for then delete
 def main(pattern, scale: int, quiet: bool):
     for image in (images := Path().glob(pattern)):
         if image.suffix not in SUPPORTED_FILE_TYPES:

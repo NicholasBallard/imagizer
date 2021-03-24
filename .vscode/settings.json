@@ -1,4 +1,17 @@
 {
     "python.pythonPath": "venv\\Scripts\\python.exe",
-    "gitdoc.enabled": false
+    "gitdoc.enabled": false,
+    "python.analysis.extraPaths": [
+        "src"
+    ],
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}/src",
+    },
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}/src",
+    },
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${env:PYTHONPATH};${workspaceFolder}/src",
+    },
+    "python.formatting.provider": "black",
 }

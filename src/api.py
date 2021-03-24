@@ -3,10 +3,13 @@
 FastAPI
 https://fastapi.tiangolo.com/
 
-image resize from file
-image resize from url
-generate ico files
-ml classification of image
+image resize from file **DONE**
+image resize from url **DONE**
+generate ico files 
+ml classification of image 
+access: google drive, onedrive, dropbox, s3 
+save in s3 bucket 
+
 
 """
 
@@ -26,11 +29,6 @@ from resize import resize
 app = FastAPI()
 
 
-@app.get("/items/")
-async def read_items():
-    return [{"name": "Foo"}]
-
-
 def custom_openapi() -> dict:
     """Get the OpenAPI spec
 
@@ -39,7 +37,7 @@ def custom_openapi() -> dict:
 
     Returns:
         dict: The OpenAPI spec
-    """    
+    """
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
@@ -52,23 +50,28 @@ def custom_openapi() -> dict:
     return app.openapi_schema
 
 
-@app.post("/resize")
+@app.post("/resize-file")
 async def resize_from_file(file: UploadFile = File(...), scale_pct: float = 50.0):
     image = await file.read()
     resized, headers = resize(image, scale_pct)
-    headers.update({
-        'orig-filename': file.filename,
-        'content-type': file.content_type,
-    })
+    headers.update(
+        {
+            "orig-filename": file.filename,
+            "content-type": file.content_type,
+        }
+    )
     headers.update({k: str(v) for k, v in headers.items()})
     return StreamingResponse(resized, media_type="image/png", headers=headers)
 
 
-@app.get("/from_web/{url}/")
-async def resize_from_web(url: HttpUrl):
-    return {"hi": "person"}
+@app.get("/resize-url")
+async def resize_from_url(url: HttpUrl, scale_pct: float = 50.0):
+    resized, headers = resize(url, scale_pct)
+    headers.update({k: str(v) for k, v in headers.items()})
+    return StreamingResponse(resized, media_type="image/png", headers=headers)
 
-@app.get("/ico/")
+
+@app.post("/favicon")
 async def favicon(image) -> list[bytes]:
     """Favicon generator from an image.
 
@@ -90,10 +93,10 @@ async def favicon(image) -> list[bytes]:
     For each of the favicons above, have two versions:
         1. transparent background
         2. solid fill background
-    
+
     README.txt included in response.
         - Explain what each size is for.
-    
+
     SNIPPET.html
         - Example HTML code for including the favicons on a website.
 
@@ -102,9 +105,13 @@ async def favicon(image) -> list[bytes]:
 
     Returns:
         list[bytes]: [description]
-    """     
+    """
+    sizes: list[tuple[int, int]] = [(x, x) for x in [32, 128, 152, 167, 180, 192, 196]]
+    name_file = lambda size: f"favicon-{size}.png"
 
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
+    # debugging
     import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
