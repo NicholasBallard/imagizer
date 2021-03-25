@@ -3,19 +3,12 @@
 FastAPI
 https://fastapi.tiangolo.com/
 
-image resize from file **DONE**
-image resize from url **DONE**
-generate ico files 
-ml classification of image 
-access: google drive, onedrive, dropbox, s3 
-save in s3 bucket 
-
-
 """
 
-from typing import Optional
-from io import BytesIO
+from enum import Enum
 from json import dumps
+from io import BytesIO
+from typing import Optional
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.openapi.utils import get_openapi
@@ -23,7 +16,8 @@ from PIL import Image
 from pydantic import BaseModel, HttpUrl
 from starlette.responses import StreamingResponse
 
-from resize import resize
+from favicon import create_favicon
+from resize import read_from_file, read_from_url, resize
 
 
 app = FastAPI()
@@ -72,7 +66,7 @@ async def resize_from_url(url: HttpUrl, scale_pct: float = 50.0):
 
 
 @app.post("/favicon")
-async def favicon(image) -> list[bytes]:
+async def favicon(fp: Union[bytes, str]):
     """Favicon generator from an image.
 
     Ref:
@@ -108,7 +102,24 @@ async def favicon(image) -> list[bytes]:
     """
     sizes: list[tuple[int, int]] = [(x, x) for x in [32, 128, 152, 167, 180, 192, 196]]
     name_file = lambda size: f"favicon-{size}.png"
+    if isinstance(fp, bytes):
+        im: Image = read_from_file(fp)
+    else:
+        im: Image = read_from_url(fp)
+    for x in sizes:
+        fav = create_favicon(fp)
 
+
+class Filter(str, Enum):
+    grayscale = "grayscale"
+    hough = "hough"
+    fuzz = "fuzz"
+    negative = "negative"
+
+
+@app.post("/apply-filter")
+def apply_filter(filter: Filter):
+    pass
 
 
 if __name__ == "__main__":
