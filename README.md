@@ -19,6 +19,11 @@ Resizes an image, but does not require sending the image data in the request bod
 
 Instead, you supply the URL and the service will fetch the image from the web, then return a resized image.
 
+
+### Make favicon files for website
+
+Returns a set of favicon icon files with an explanation for how to use them and a sample HTML snippet showing how to use them.
+
 ```
 generate ico files  
 ml classification of image  
@@ -35,7 +40,9 @@ ml classification of image
         form extraction  
         text recognition  
 access: google drive, onedrive, dropbox, s3  
-save in s3 bucket 
+save in s3 bucket
+pro mode: all options to send to PIL.Image
+compound transformations (count as more than one request)
 ```
 
 ## Setting Up
