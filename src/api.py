@@ -8,7 +8,7 @@ https://fastapi.tiangolo.com/
 from enum import Enum
 from json import dumps
 from io import BytesIO
-from typing import Optional
+from typing import Optional, Union
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.openapi.utils import get_openapi
@@ -17,7 +17,8 @@ from pydantic import BaseModel, HttpUrl
 from starlette.responses import StreamingResponse
 
 from favicon import create_favicon
-from resize import read_from_file, read_from_url, resize
+from read import read_in_image
+from resize import resize
 
 
 app = FastAPI()

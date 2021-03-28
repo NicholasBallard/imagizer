@@ -1,5 +1,6 @@
-#opencv-python-headless
+black
 fastapi
+opencv-python-headless
 Pillow
 python-multipart
 requests

@@ -1,10 +1,10 @@
 from typing import Optional
 from PIL import Image
 
-from resize import read_from_file, read_from_url
+from read import read_in_image
 
 
-def create_favicon(image: Image, pixels: int) -> Optional[Image]:
+def create_favicon(image: Image.Image, pixels: int) -> Optional[Image.Image]:
     dims: tuple[int, int] = image.size
     if not pixels <= min(dims):
         print(
