@@ -17,6 +17,7 @@ from pydantic import BaseModel, HttpUrl
 from starlette.responses import StreamingResponse
 
 from favicon import create_favicon
+from hough import hough
 from read import read_in_image
 from resize import resize
 
@@ -121,6 +122,14 @@ class Filter(str, Enum):
 @app.post("/apply-filter")
 def apply_filter(filter: Filter):
     pass
+
+
+@app.post("/hough")
+def hough(file: UploadFile = File(...), threshold: int = 2):
+    image = file.read()
+    hough_img = hough(image, threshold)
+    headers: dict = {}
+    return StreamingResponse(hough_img, media_type="image/png", headers=headers)
 
 
 if __name__ == "__main__":

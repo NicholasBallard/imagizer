@@ -2,7 +2,6 @@
 """
 
 from __future__ import annotations
-from io import BytesIO
 from pathlib import Path
 from typing import Union
 
@@ -10,6 +9,7 @@ from PIL import Image
 from pydantic import HttpUrl
 
 from read import read_in_image
+from write import buffer
 
 
 def resize(image: Union[HttpUrl, bytes], scale: Union[float, int]) -> tuple[BytesIO, dict]:
@@ -29,9 +29,7 @@ def resize(image: Union[HttpUrl, bytes], scale: Union[float, int]) -> tuple[Byte
     new_height: int = _scale(height, scale)
     new_dim: tuple = (new_width, new_height)
     resized = im.resize(new_dim)
-    buf = BytesIO()
-    resized.save(buf, format="PNG", quality=100)
-    buf.seek(0)
+    buf = buffer(resized)
     stats: dict = {
         "orig-width": width,
         "orig-height": height,

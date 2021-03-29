@@ -1,20 +1,15 @@
 import cv2
 import numpy as np
 
-from read import read_in_image
 
-def hough(fp):
+def hough(image, threshold: int):
     """ Detect lines with CV2's Hough Line Transform
 
     Ref:
         - https://docs.opencv.org/3.4/d3/de6/tutorial_js_houghlines.html
         - https://learnopencv.com/hough-transform-with-opencv-c-python
     """
-    # TODO remove magic number
-    threshold: int = 2
-    # read in
-    _img = read_in_image(fp)
-    img = cv2.imread(_img, cv2.IMREAD_COLOR) # road.png is the filename
+    img = cv2.imread(image, cv2.IMREAD_COLOR) # road.png is the filename
     # image to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # find edges using canny detector

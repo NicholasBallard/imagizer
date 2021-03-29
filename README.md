@@ -41,7 +41,7 @@ ml classification of image
 access: google drive, onedrive, dropbox, s3  
 save in s3 bucket
 pro mode: all options to send to PIL.Image
-compound transformations (count as more than one request)
+chain actions (count as more than one request)
 custom workload (inside container)
 ```
 
