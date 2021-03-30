@@ -1,11 +1,11 @@
 FROM python
 
-EXPOSE 8080
-
 COPY . /app
 
-RUN pip install -r app/requirements.txt
+WORKDIR /app
 
-WORKDIR /app/src
+EXPOSE $PORT
 
-CMD exec uvicorn api:app --host 0.0.0.0
+RUN pip install -r requirements.txt
+
+CMD uvicorn src.api:app --host 0.0.0.0
