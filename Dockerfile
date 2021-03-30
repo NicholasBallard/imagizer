@@ -1,9 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi
 
-COPY . /app
+COPY ./src /app
 
 WORKDIR /app
-
-EXPOSE $PORT
 
 RUN pip install -r requirements.txt
