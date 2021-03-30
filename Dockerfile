@@ -1,6 +1,6 @@
 FROM python
 
-EXPOSE 80
+EXPOSE $PORT
 
 COPY . /app
 
