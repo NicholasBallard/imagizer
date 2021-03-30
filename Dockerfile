@@ -1,5 +1,7 @@
 FROM python
 
+ENV PORT 8080
+
 EXPOSE ${PORT}
 
 COPY . /app
