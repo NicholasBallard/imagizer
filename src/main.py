@@ -125,8 +125,8 @@ def apply_filter(filter: Filter):
 
 
 @app.post("/hough")
-def hough(file: UploadFile = File(...), threshold: int = 2):
-    image = file.read()
+async def hough(file: UploadFile = File(...), threshold: int = 2):
+    image = await file.read()
     hough_img = hough(image, threshold)
     headers: dict = {}
     return StreamingResponse(hough_img, media_type="image/png", headers=headers)

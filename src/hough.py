@@ -2,14 +2,16 @@ import cv2
 import numpy as np
 
 
-def hough(image, threshold: int):
+def hough(image: bytes, threshold: int):
     """ Detect lines with CV2's Hough Line Transform
 
     Ref:
         - https://docs.opencv.org/3.4/d3/de6/tutorial_js_houghlines.html
         - https://learnopencv.com/hough-transform-with-opencv-c-python
     """
-    img = cv2.imread(image, cv2.IMREAD_COLOR) # road.png is the filename
+    # bytes to numpy
+    img_arr = np.frombuffer(image, np.uint8)
+    img = cv2.imdecode(img_arr, cv2.IMREAD_COLOR)
     # image to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # find edges using canny detector

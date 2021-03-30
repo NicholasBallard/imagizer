@@ -1,6 +1,8 @@
 black
 fastapi
+numpy
 opencv-python-headless
+pandas
 Pillow
 python-multipart
 requests
