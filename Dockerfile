@@ -1,9 +1,9 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi
+FROM python
 
 RUN pip install -r requirements.txt
 
 COPY ./src /app
 
-WORKDIR /app
+EXPOSE $PORT
 
-CMD uvicorn main:app --host 0.0.0.0 --port $PORT
+CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
