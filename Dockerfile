@@ -11,9 +11,6 @@
 # CMD uvicorn main:app --host 0.0.0.0 --port $PORT
 
 FROM tiangolo/uvicorn-gunicorn-fastapi
-
-COPY . /app/
-
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
-COPY /app/src /app/app
+COPY ./src /app/app
