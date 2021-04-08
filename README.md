@@ -43,6 +43,10 @@ save in s3 bucket
 pro mode: all options to send to PIL.Image
 chain actions (count as more than one request)
 custom workload (inside container)
+qr code reader
+qr code creator
+barcode reader
+barcode creator
 ```
 
 ## Setting Up
