@@ -25,7 +25,9 @@ Returns a set of favicon icon files with an explanation for how to use them and 
 
 ```text
 generate ico files  
-ml classification of image  
+blur image
+partial redattion for (credit card numbers)
+ml classification of image
     ref:  
         - https://cloud.google.com/vision/pricing  
     labels  
@@ -43,6 +45,10 @@ save in s3 bucket
 pro mode: all options to send to PIL.Image
 chain actions (count as more than one request)
 custom workload (inside container)
+mri
+  nibabel
+  pydicom
+encoding
 ```
 
 ## Setting Up

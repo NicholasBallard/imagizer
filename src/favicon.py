@@ -21,7 +21,7 @@ def create_favicon(image: Image.Image, pixels: int) -> Optional[Image.Image]:
         )
     new_dims: tuple[int, int] = (pixels, pixels)
     # can pad an un-square image with a border color
-    return im.resize((pixels, pixels))
+    return image.resize((pixels, pixels))
 
 
 def templates():

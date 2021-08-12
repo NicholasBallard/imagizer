@@ -21,8 +21,14 @@ from hough import hough
 from read import read_in_image
 from resize import resize
 
+from routers import (
+    qr,
+)
+
 
 app = FastAPI()
+
+app.include_router(qr.router)
 
 
 def custom_openapi() -> dict:
@@ -136,3 +142,4 @@ if __name__ == "__main__":
     # debugging
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+

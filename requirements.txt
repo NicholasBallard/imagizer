@@ -7,3 +7,18 @@ Pillow
 python-multipart
 requests
 uvicorn[standard]
+
+# barcode
+Pillow
+python-barcode
+pyzbar
+
+# qr code
+qrcode[pil]
+pyzbar
+
+# dev
+ipython
+pytest
+pytest-cov
+pytest-mock
