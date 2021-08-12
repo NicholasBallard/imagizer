@@ -49,6 +49,10 @@ mri
   nibabel
   pydicom
 encoding
+qr code reader
+qr code creator
+barcode reader
+barcode creator
 ```
 
 ## Setting Up
