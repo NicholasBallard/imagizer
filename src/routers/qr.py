@@ -111,9 +111,6 @@ router = APIRouter(
 async def make(value: str, qr_code_settings: QRCodeSettings = QRCodeSettings()):
     qr = make_qr(value, qr_code_settings)
     img = qr.make_image(fill_color="black", back_color="white")
-    # image = BytesIO()
-    # img.save(image, format='PNG', quality=100)
-    # image.seek(0)
     return StreamingResponse(buffer(img), media_type="image/png")
 
 
