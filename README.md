@@ -53,6 +53,9 @@ qr code reader
 qr code creator
 barcode reader
 barcode creator
+xxx compress images like tinyIMG or minify
+xxx merge pdf
+rotate images
 ```
 
 ## Setting Up
