@@ -56,6 +56,8 @@ barcode creator
 xxx compress images like tinyIMG or minify
 xxx merge pdf
 rotate images
+amazon product pictures
+upscaling with AI
 ```
 
 ## Setting Up
