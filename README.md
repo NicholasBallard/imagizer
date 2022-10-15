@@ -58,6 +58,11 @@ xxx merge pdf
 rotate images
 amazon product pictures
 upscaling with AI
+compress to web friendly formats with Sharp https://github.com/lovell/sharp
+DALL-E 2 image generation
+MidJourney image generation
+
+
 ```
 
 ## Setting Up
